@@ -7,6 +7,8 @@
 
 
 #include "xc.h"
+#pragma config FNOSC = FRC // Configure 8Mhz Oscillator
+
 #include "turning_functions.h"
 #include "timer_setup.h"
 
@@ -25,10 +27,6 @@ void __attribute__((interrupt, no_auto_psv)) _OC2Interrupt(void){
 }
 
 #include "task_detection.h"
-
-
-
-#pragma config FNOSC = FRC // Configure 8Mhz Oscillator
 
 #include "setup_functions.h"
 

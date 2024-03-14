@@ -23,16 +23,24 @@ int task_ident(void){
     int count = 1; // Set the line count to 1. The robot has already detected a line when this function is triggered.
     //Move forward
     OC2RS = 9999;
-    OC2R = 5000;
+//    OC2R = 5000;
     OC3RS = 9999;
-    OC3R = 5000;
+//    OC3R = 5000;
+    OC2R = 0;
+    OC3R = 0;
+    timeup = 0;
     while(1){
         TMR1 = 0; //Reset timer
         //Stop when PWM count >= 171 steps
         //if(pwm_counter >= N){
-        //    pwm_counter = 0;
+        //pwm_counter = 0;
         
         if(timeup){
+            //Debug to get interrupt working. 
+            while(1){
+                Nop();
+            }
+            
             timeup = 0;
             //Checks if prox sensor white or black.
             if(_RA0 == 0){
@@ -45,7 +53,7 @@ int task_ident(void){
                 return count;
             }
         }
-    }
+    }   
 }
 
 #endif
