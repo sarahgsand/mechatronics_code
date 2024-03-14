@@ -35,7 +35,7 @@ OC3R = 0; //Set the duty cycle initially to zero (PWM off)
 OC3CON1bits.OCM = 0b110; //Enable PWM.
 
 // Set up PWM Interrupt.
-_OC2IP = 4; // Set Priority to 4.
+_OC2IP = 1; // Set Priority to 1.
 _OC2IF = 0; // Set the flag to zero just in case.
 }
 
