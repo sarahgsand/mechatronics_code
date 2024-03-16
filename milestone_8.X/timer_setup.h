@@ -28,10 +28,6 @@ void timer_config(void){
     PR1 = 0.136*OC2RS;        //timer period of 5 sec
     TMR1 = 0;           //Reset timer
     
-    //Timer Interrupt Configuration
-    _T1IP = 3;
-    _T1IF = 0;
-    _T1IE = 1;
 }
 
 #endif	/* TIMER_SETUP_H */

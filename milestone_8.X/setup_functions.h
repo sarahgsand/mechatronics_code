@@ -37,6 +37,12 @@ OC3CON1bits.OCM = 0b110; //Enable PWM.
 // Set up PWM Interrupt.
 _OC2IP = 1; // Set Priority to 1.
 _OC2IF = 0; // Set the flag to zero just in case.
+
+//Set up OC3 Interrupt.
+_OC3IP = 5;
+_OC3IF = 0;
+_OC3IE = 0;
+
 }
 
 //Set up digital input/output.
@@ -54,6 +60,10 @@ void setup_dio(){
     _ANSB14 = 0;
     _TRISB14 = 1;
     
+    // Set up LED on pin 12 as digital output.
+    _TRISB8 = 0;
+    _LATB8 = 0; //Set off intially.
+    
     //Set up line following sensors as digital inputs.
     _ANSB12 = 0;
     _TRISB12 = 1;
@@ -63,5 +73,14 @@ void setup_dio(){
     //Set up Prox sensor for task detection as digital input.
     _ANSA0 = 0;
     _TRISA0 = 1;
+    
+    //set up canyon navigation sensors
+    //Front
+    _ANSA2 = 0;
+    _TRISA2 = 1;
+    
+    //Left
+    //_ANSB7 = 0; //changed pin
+    _TRISB7 = 1; //changed pin
 }
 #endif
