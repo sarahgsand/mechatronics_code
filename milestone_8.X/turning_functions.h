@@ -13,12 +13,7 @@
 #include <xc.h> // include processor files - each processor file is guarded. 
 
 void turn_right(void){
-    //Left wheel stays the same.
-    OC2RS = 9999;
-    OC2R = 5000;
-    //Right wheel goes faster
-    OC3RS = 29999;
-    OC3R = 15000;
+
 }
 
 void turn_left(void){
