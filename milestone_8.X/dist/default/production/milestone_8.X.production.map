@@ -1,13 +1,15 @@
-Microchip Technology Inc, v2.10 (A)
+Microchip Technology Inc, v2.10 (B)
 
 Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
   -p24F16KA301 \
+  --mdfp=C:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16 \
   -o \
   dist/default/production/milestone_8.X.production.elf \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/.. \
+  -LC:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16/bin/../support/PIC24F/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../lib \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/PIC24E/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/PIC24F/gld \
@@ -52,7 +54,7 @@ c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_s
                               (__crt_start_mode_normal)
 
 
-xc16-ld 2.10 (A)
+xc16-ld 2.10 (B)
 
 Default Code Model: Small
 Default Data Model: Small
@@ -63,20 +65,20 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xf2           0x16b  (363)
-.text                        0x2f2               0x2c8           0x42c  (1068)
-.dinit                       0x5ba                0x12            0x1b  (27)
+.text                        0x2f2               0x36a           0x51f  (1311)
+.dinit                       0x65c                0x14            0x1e  (30)
 
-                 Total "program" memory used (bytes):          0x5b2  (1458) 9%
+                 Total "program" memory used (bytes):          0x6a8  (1704) 10%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x6  (6)
-.ndata                       0x806                   0             0x4  (4)
+.nbss                        0x800                   0             0x8  (8)
+.ndata                       0x808                   0             0x8  (8)
 
-                 Total "data" memory used (bytes):            0xa  (10) <1%
+                 Total "data" memory used (bytes):           0x10  (16) <1%
 
 
 Dynamic Memory Usage
@@ -84,9 +86,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x80a                               0x7f6  (2038)
+stack                        0x810                               0x7f0  (2032)
 
-                 Maximum dynamic memory (bytes):          0x7f6  (2038)
+                 Maximum dynamic memory (bytes):          0x7f0  (2032)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -95,15 +97,21 @@ External Symbols in Data Memory (by address):
 
                     0x0802                  _pwm_counts
                     0x0804                  _state
-                    0x0806                  _task_num
-                    0x0808                  _N
+                    0x0806                  _isblack
+                    0x0808                  _task_num
+                    0x080a                  _N
+                    0x080c                  _N_straight
+                    0x080e                  _N_reverse
 
 External Symbols in Data Memory (by name):
 
-                    0x0808                  _N
+                    0x080a                  _N
+                    0x080e                  _N_reverse
+                    0x080c                  _N_straight
+                    0x0806                  _isblack
                     0x0802                  _pwm_counts
                     0x0804                  _state
-                    0x0806                  _task_num
+                    0x0808                  _task_num
 
 External Symbols in Program Memory (by address):
 
@@ -120,9 +128,11 @@ External Symbols in Program Memory (by address):
                   0x0003e0                  _left_90
                   0x0003fa                  _go_straight
                   0x000406                  _canyon_nav
-                  0x000438                  _setup_pwm
-                  0x0004a2                  _setup_dio
-                  0x0004ce                  _main
+                  0x000438                  _stop
+                  0x000442                  _drive
+                  0x000458                  _setup_pwm
+                  0x0004c2                  _setup_dio
+                  0x0004f2                  _main
 
 External Symbols in Program Memory (by name):
 
@@ -134,14 +144,16 @@ External Symbols in Program Memory (by name):
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
                   0x000406                  _canyon_nav
+                  0x000442                  _drive
                   0x0002f2                  _follow
                   0x00035c                  _follow_slow
                   0x0003fa                  _go_straight
                   0x0003e0                  _left_90
-                  0x0004ce                  _main
+                  0x0004f2                  _main
                   0x0003c6                  _right_90
-                  0x0004a2                  _setup_dio
-                  0x000438                  _setup_pwm
+                  0x0004c2                  _setup_dio
+                  0x000458                  _setup_pwm
+                  0x000438                  _stop
 
 Memory Configuration
 
@@ -184,8 +196,6 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                     0x0104                  __AIVT_BASE = 0x104
                     0x0800                  __DATA_BASE = 0x800
                     0x0800                  __DATA_LENGTH = 0x800
-                    0x7ffe00                  __EEDATA_BASE = 0x7ffe00
-                    0x0200                  __EEDATA_LENGTH = 0x200
 
 .reset            0x000000          0x4
                   0x000000          0x2 SHORT 0x200 ABSOLUTE (__reset)
@@ -249,26 +259,26 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1aed
+.debug_info       0x000000       0x1b51
  *(.debug_info)
- .debug_info      0x000000       0x1aed build/default/production/main.o
+ .debug_info      0x000000       0x1b51 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x19e
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x19e build/default/production/main.o
 
-.debug_line       0x000000        0x1f7
+.debug_line       0x000000        0x265
  *(.debug_line)
- .debug_line      0x000000        0x1f7 build/default/production/main.o
+ .debug_line      0x000000        0x265 build/default/production/main.o
 
-.debug_frame      0x000000        0x146
+.debug_frame      0x000000        0x17a
  *(.debug_frame)
- .debug_frame     0x000000        0x146 build/default/production/main.o
+ .debug_frame     0x000000        0x17a build/default/production/main.o
 
-.debug_str        0x000000        0x10e
+.debug_str        0x000000        0x123
  *(.debug_str)
- .debug_str       0x000000        0x10e build/default/production/main.o
+ .debug_str       0x000000        0x123 build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -277,10 +287,10 @@ __FDS
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xda
+                  0x000000        0x116
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0xda build/default/production/main.o
+                  0x000000        0x116 build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -921,15 +931,18 @@ __c30_signature
  __c30_signature
                   0x00026d          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800          0x6
- .nbss              0x0800          0x6 build/default/production/main.o
+.nbss               0x0800          0x8
+ .nbss              0x0800          0x8 build/default/production/main.o
                     0x0802                  _pwm_counts
                     0x0804                  _state
+                    0x0806                  _isblack
 
-.ndata              0x0806          0x4
- .ndata             0x0806          0x4 build/default/production/main.o
-                    0x0806                  _task_num
-                    0x0808                  _N
+.ndata              0x0808          0x8
+ .ndata             0x0808          0x8 build/default/production/main.o
+                    0x0808                  _task_num
+                    0x080a                  _N
+                    0x080c                  _N_straight
+                    0x080e                  _N_reverse
 
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/production/main.o
@@ -944,17 +957,19 @@ __c30_signature
  .ivt._OC2Interrupt
                   0x000020          0x2 build/default/production/main.o
 
-.text             0x0002f2        0x2c8
- .text            0x0002f2        0x2c8 build/default/production/main.o
+.text             0x0002f2        0x36a
+ .text            0x0002f2        0x36a build/default/production/main.o
                   0x0002f2                  _follow
                   0x00035c                  _follow_slow
                   0x0003c6                  _right_90
                   0x0003e0                  _left_90
                   0x0003fa                  _go_straight
                   0x000406                  _canyon_nav
-                  0x000438                  _setup_pwm
-                  0x0004a2                  _setup_dio
-                  0x0004ce                  _main
+                  0x000438                  _stop
+                  0x000442                  _drive
+                  0x000458                  _setup_pwm
+                  0x0004c2                  _setup_dio
+                  0x0004f2                  _main
 
-.dinit            0x0005ba         0x12
- .dinit           0x0005ba         0x12 data_init
+.dinit            0x00065c         0x14
+ .dinit           0x00065c         0x14 data_init

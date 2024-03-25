@@ -78,9 +78,13 @@ void setup_dio(){
     //Front
     _ANSA2 = 0;
     _TRISA2 = 1;
-    
     //Left
     //_ANSB7 = 0; //changed pin
     _TRISB7 = 1; //changed pin
+    
+    //Set up ball detect prox sensor
+    _ANSB15 = 0;
+    _TRISB15 = 1;
+    
 }
 #endif

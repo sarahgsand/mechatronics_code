@@ -43,7 +43,7 @@ void left_90(void)
     while(count<N90){
         Nop(); // Does nothing while it's turning
     }
-    _LATA1 = 0; // The right wheel spins forward again.
+    _LATA1 = 0; // The left wheel spins forward again.
 }
 
 
@@ -73,10 +73,10 @@ void canyon_nav(void) {
 
             //if wall left
             if(_RA2 == 0){  //Pin 7/Left
-                 left_90(); //changed
+                 right_90(); //changed
             }
             else{
-                right_90(); //changed
+                left_90(); //changed
             }
         }
 
