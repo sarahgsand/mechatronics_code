@@ -14,6 +14,7 @@
 #include "line_follow.h"
 #include "canyon_run.h"
 #include "ball_sort.h"
+#include "ball_get.h"
 
 int pwm_counts = 0;
 
@@ -31,9 +32,11 @@ int task_num = 1;
 int N = 65; //52 is good for full speed, dropped for 1/3 speed (Spacing between task detection lines.)
 
 // Ball Sorting Variables: 
-int N_straight = 364; //Number of PWM cycles to go straight //OG: 364
+int N_straight_sort = 364; //Number of PWM cycles to go straight //OG: 364
 int N_reverse = 122; //Number of PWM cycles to go reverse
 int isblack = 0; // If the ping-pong ball is black or not.
+//int N_straight_get = 300;
+//int N_reverse_get = 200;
 
 int main(void) {
     //_RCDIV = 0;
@@ -48,9 +51,12 @@ int main(void) {
     
     while(1)
     {
-        //OC2R = 5000;
-        //OC3R = 5000;
-       
+
+//        OC2R = 5000; //Code to check hardware problems,
+//        OC3R = 5000; //it just runs the robot straight.
+//        OC2RS = 9999;
+//        OC3RS = 9999;
+       ///*              //Will comment out entire code
         switch(state) {
             case SLEEP:
                 if (_RB14)  {
@@ -94,16 +100,17 @@ int main(void) {
                         }
                         if(task_num == 2){
                             //_LATB8 = 1;
+                            _OC3IE = 1;
                             state = BALL_GET;
                         }
                         else if(task_num == 3) {
                             //_LATB8 = 1;
                             count = 0;  //Reset pwm counter
                             task_num = 1; // Reset task_num
-                            OC2R = 5000;
-                            OC3R = 5000;
                             OC2RS = 9999;
                             OC3RS = 9999;
+                            OC2R = 5000;
+                            OC3R = 5000;
                             _OC3IE = 1;
                             state = BALL_DROP;
                         }
@@ -118,11 +125,15 @@ int main(void) {
                 OC2R = 5000;
                 OC3R = 5000;
                 task_num = 1;
+                count = 0;
+                get_ball();
                 state = LINE_FLW;
                 _LATB8 = 0;
+                
                 break;
             case BALL_DROP:
-                while(count < N_straight){
+                task_num = 1;
+                while(count < N_straight_sort){
                     _LATB2 = 0;
                     _LATA1 = 0;
                     follow();
@@ -172,6 +183,7 @@ int main(void) {
                 OC2R = 3500; //Enable the PWM by setting the duty cycle.
                 OC3R = 3500;
                 state = LINE_FLW;
+                _OC3IE = 0; //disable pwm interrupt
                 break;
                 
                 case CANYON:
@@ -183,7 +195,7 @@ int main(void) {
                     break;
 
         }
-        
+        //*/
     }
     return 0;
 }

@@ -18,10 +18,10 @@ void stop(void) {
 }
 
 void drive(void) {
-    OC2R = 3500;
-    OC3R = 3500;
-    OC2RS = 9999;
-    OC3RS = 9999;
+    OC2R = 5000*3/2;
+    OC3R = 5000*3/2;
+    OC2RS = 9999*3/2;
+    OC3RS = 9999*3/2; //changed
 }
 
 #endif	/* XC_HEADER_TEMPLATE_H */

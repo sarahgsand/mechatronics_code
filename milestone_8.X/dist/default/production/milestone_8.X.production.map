@@ -65,20 +65,20 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xf2           0x16b  (363)
-.text                        0x2f2               0x36a           0x51f  (1311)
-.dinit                       0x65c                0x14            0x1e  (30)
+.text                        0x2f2               0x3e4           0x5d6  (1494)
+.dinit                       0x6d6                0x18            0x24  (36)
 
-                 Total "program" memory used (bytes):          0x6a8  (1704) 10%
+                 Total "program" memory used (bytes):          0x765  (1893) 11%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x8  (8)
-.ndata                       0x808                   0             0x8  (8)
+.ndata                       0x800                   0             0xe  (14)
+.nbss                        0x80e                   0             0x8  (8)
 
-                 Total "data" memory used (bytes):           0x10  (16) <1%
+                 Total "data" memory used (bytes):           0x16  (22) 1%
 
 
 Dynamic Memory Usage
@@ -86,32 +86,38 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x810                               0x7f0  (2032)
+stack                        0x816                               0x7ea  (2026)
 
-                 Maximum dynamic memory (bytes):          0x7f0  (2032)
+                 Maximum dynamic memory (bytes):          0x7ea  (2026)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0802                  _pwm_counts
-                    0x0804                  _state
-                    0x0806                  _isblack
-                    0x0808                  _task_num
-                    0x080a                  _N
-                    0x080c                  _N_straight
-                    0x080e                  _N_reverse
+                    0x0800                  _N_straight_get
+                    0x0802                  _N_reverse_get
+                    0x0804                  _N_really_slow
+                    0x0806                  _task_num
+                    0x0808                  _N
+                    0x080a                  _N_straight_sort
+                    0x080c                  _N_reverse
+                    0x0810                  _pwm_counts
+                    0x0812                  _state
+                    0x0814                  _isblack
 
 External Symbols in Data Memory (by name):
 
-                    0x080a                  _N
-                    0x080e                  _N_reverse
-                    0x080c                  _N_straight
-                    0x0806                  _isblack
-                    0x0802                  _pwm_counts
-                    0x0804                  _state
-                    0x0808                  _task_num
+                    0x0808                  _N
+                    0x0804                  _N_really_slow
+                    0x080c                  _N_reverse
+                    0x0802                  _N_reverse_get
+                    0x0800                  _N_straight_get
+                    0x080a                  _N_straight_sort
+                    0x0814                  _isblack
+                    0x0810                  _pwm_counts
+                    0x0812                  _state
+                    0x0806                  _task_num
 
 External Symbols in Program Memory (by address):
 
@@ -130,9 +136,10 @@ External Symbols in Program Memory (by address):
                   0x000406                  _canyon_nav
                   0x000438                  _stop
                   0x000442                  _drive
-                  0x000458                  _setup_pwm
-                  0x0004c2                  _setup_dio
-                  0x0004f2                  _main
+                  0x000458                  _get_ball
+                  0x0004c8                  _setup_pwm
+                  0x000532                  _setup_dio
+                  0x000562                  _main
 
 External Symbols in Program Memory (by name):
 
@@ -147,12 +154,13 @@ External Symbols in Program Memory (by name):
                   0x000442                  _drive
                   0x0002f2                  _follow
                   0x00035c                  _follow_slow
+                  0x000458                  _get_ball
                   0x0003fa                  _go_straight
                   0x0003e0                  _left_90
-                  0x0004f2                  _main
+                  0x000562                  _main
                   0x0003c6                  _right_90
-                  0x0004c2                  _setup_dio
-                  0x000458                  _setup_pwm
+                  0x000532                  _setup_dio
+                  0x0004c8                  _setup_pwm
                   0x000438                  _stop
 
 Memory Configuration
@@ -259,26 +267,26 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1b4c
+.debug_info       0x000000       0x1bc1
  *(.debug_info)
- .debug_info      0x000000       0x1b4c build/default/production/main.o
+ .debug_info      0x000000       0x1bc1 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x19e
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x19e build/default/production/main.o
 
-.debug_line       0x000000        0x265
+.debug_line       0x000000        0x2a0
  *(.debug_line)
- .debug_line      0x000000        0x265 build/default/production/main.o
+ .debug_line      0x000000        0x2a0 build/default/production/main.o
 
-.debug_frame      0x000000        0x17a
+.debug_frame      0x000000        0x194
  *(.debug_frame)
- .debug_frame     0x000000        0x17a build/default/production/main.o
+ .debug_frame     0x000000        0x194 build/default/production/main.o
 
-.debug_str        0x000000        0x123
+.debug_str        0x000000        0x153
  *(.debug_str)
- .debug_str       0x000000        0x123 build/default/production/main.o
+ .debug_str       0x000000        0x153 build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -287,10 +295,10 @@ __FDS
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x116
+                  0x000000        0x15f
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x116 build/default/production/main.o
+                  0x000000        0x15f build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -931,18 +939,21 @@ __c30_signature
  __c30_signature
                   0x00026d          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800          0x8
- .nbss              0x0800          0x8 build/default/production/main.o
-                    0x0802                  _pwm_counts
-                    0x0804                  _state
-                    0x0806                  _isblack
+.ndata              0x0800          0xe
+ .ndata             0x0800          0xe build/default/production/main.o
+                    0x0800                  _N_straight_get
+                    0x0802                  _N_reverse_get
+                    0x0804                  _N_really_slow
+                    0x0806                  _task_num
+                    0x0808                  _N
+                    0x080a                  _N_straight_sort
+                    0x080c                  _N_reverse
 
-.ndata              0x0808          0x8
- .ndata             0x0808          0x8 build/default/production/main.o
-                    0x0808                  _task_num
-                    0x080a                  _N
-                    0x080c                  _N_straight
-                    0x080e                  _N_reverse
+.nbss               0x080e          0x8
+ .nbss              0x080e          0x8 build/default/production/main.o
+                    0x0810                  _pwm_counts
+                    0x0812                  _state
+                    0x0814                  _isblack
 
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/production/main.o
@@ -957,8 +968,8 @@ __c30_signature
  .ivt._OC2Interrupt
                   0x000020          0x2 build/default/production/main.o
 
-.text             0x0002f2        0x36a
- .text            0x0002f2        0x36a build/default/production/main.o
+.text             0x0002f2        0x3e4
+ .text            0x0002f2        0x3e4 build/default/production/main.o
                   0x0002f2                  _follow
                   0x00035c                  _follow_slow
                   0x0003c6                  _right_90
@@ -967,9 +978,10 @@ __c30_signature
                   0x000406                  _canyon_nav
                   0x000438                  _stop
                   0x000442                  _drive
-                  0x000458                  _setup_pwm
-                  0x0004c2                  _setup_dio
-                  0x0004f2                  _main
+                  0x000458                  _get_ball
+                  0x0004c8                  _setup_pwm
+                  0x000532                  _setup_dio
+                  0x000562                  _main
 
-.dinit            0x00065c         0x14
- .dinit           0x00065c         0x14 data_init
+.dinit            0x0006d6         0x18
+ .dinit           0x0006d6         0x18 data_init
