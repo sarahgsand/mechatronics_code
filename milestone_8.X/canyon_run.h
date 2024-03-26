@@ -73,10 +73,10 @@ void canyon_nav(void) {
 
             //if wall left
             if(_RA2 == 0){  //Pin 7/Left
-                 right_90(); //changed
+                 left_90(); //unchanged
             }
             else{
-                left_90(); //changed
+                right_90(); //unchanged
             }
         }
 

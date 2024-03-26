@@ -9,6 +9,7 @@
 
 #include "xc.h"
 #pragma config FNOSC = FRC // Configure 8Mhz Oscillator
+//#pragma config ICS = PGx3
 
 #include "line_follow.h"
 #include "canyon_run.h"
@@ -47,11 +48,16 @@ int main(void) {
     
     while(1)
     {
+        //OC2R = 5000;
+        //OC3R = 5000;
+       
         switch(state) {
             case SLEEP:
                 if (_RB14)  {
                     OC2R = 5000; //Enable the PWM by setting the duty cycle.
                     OC3R = 5000;
+                    //OC2RS = OC2R*2;
+                    //OC3RS = OC3R*2;
                     state = LINE_FLW;
                 }
                 break;
@@ -177,6 +183,7 @@ int main(void) {
                     break;
 
         }
+        
     }
     return 0;
 }

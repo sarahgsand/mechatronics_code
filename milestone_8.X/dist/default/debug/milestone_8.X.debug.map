@@ -4,10 +4,15 @@ Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
+  -TC:\\Users\\WONGJ_~1\\AppData\\Local\\Temp\\tmp00004f20.00 \
+  -TC:\\Users\\WONGJ_~1\\AppData\\Local\\Temp\\tmp00004f20.01 \
+  -TC:\\Users\\WONGJ_~1\\AppData\\Local\\Temp\\tmp00004f20.02 \
+  -TC:\\Users\\WONGJ_~1\\AppData\\Local\\Temp\\tmp00004f20.03 \
+  -TC:\\Users\\WONGJ_~1\\AppData\\Local\\Temp\\tmp00004f20.04 \
   -p24F16KA301 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16 \
   -o \
-  dist/default/production/milestone_8.X.production.elf \
+  dist/default/debug/milestone_8.X.debug.elf \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/.. \
   -LC:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16/bin/../support/PIC24F/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../lib \
@@ -18,9 +23,12 @@ Command:
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33C/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/main.o \
+  build/default/debug/main.o \
   --defsym=__MPLAB_BUILD=1 \
-  -Tp24F16KA301.gld.00 \
+  --defsym=__MPLAB_DEBUG=1 \
+  --defsym=__DEBUG=1 \
+  --defsym=__MPLAB_DEBUGGER_PK3=1 \
+  -Tp24F16KA301.gld.05 \
   --stack=16 \
   --check-sections \
   --data-init \
@@ -32,10 +40,10 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/default/production/milestone_8.X.production.map \
+  -Map=dist/default/debug/milestone_8.X.debug.map \
   --report-mem \
   --memorysummary \
-  dist/default/production/memoryfile.xml \
+  dist/default/debug/memoryfile.xml \
   -start-group \
   --library=c99-pic30-elf \
   --library=m-elf \
@@ -75,10 +83,15 @@ section                    address   length (PC units)   length (bytes) (dec)
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x8  (8)
-.ndata                       0x808                   0             0x8  (8)
+reserve_data_0x800           0x800                0x20            0x20  (32)
+reserve_data_0x820           0x820                 0x2             0x2  (2)
+reserve_data_0x822           0x822                 0x2             0x2  (2)
+reserve_data_0x824           0x824                 0x2             0x2  (2)
+reserve_data_0x826           0x826                0x2a            0x2a  (42)
+.nbss                        0x850                   0             0x8  (8)
+.ndata                       0x858                   0             0x8  (8)
 
-                 Total "data" memory used (bytes):           0x10  (16) <1%
+                 Total "data" memory used (bytes):           0x60  (96) 4%
 
 
 Dynamic Memory Usage
@@ -86,32 +99,32 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x810                               0x7f0  (2032)
+stack                        0x860                               0x7a0  (1952)
 
-                 Maximum dynamic memory (bytes):          0x7f0  (2032)
+                 Maximum dynamic memory (bytes):          0x7a0  (1952)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0802                  _pwm_counts
-                    0x0804                  _state
-                    0x0806                  _isblack
-                    0x0808                  _task_num
-                    0x080a                  _N
-                    0x080c                  _N_straight
-                    0x080e                  _N_reverse
+                    0x0852                  _pwm_counts
+                    0x0854                  _state
+                    0x0856                  _isblack
+                    0x0858                  _task_num
+                    0x085a                  _N
+                    0x085c                  _N_straight
+                    0x085e                  _N_reverse
 
 External Symbols in Data Memory (by name):
 
-                    0x080a                  _N
-                    0x080e                  _N_reverse
-                    0x080c                  _N_straight
-                    0x0806                  _isblack
-                    0x0802                  _pwm_counts
-                    0x0804                  _state
-                    0x0808                  _task_num
+                    0x085a                  _N
+                    0x085e                  _N_reverse
+                    0x085c                  _N_straight
+                    0x0856                  _isblack
+                    0x0852                  _pwm_counts
+                    0x0854                  _state
+                    0x0858                  _task_num
 
 External Symbols in Program Memory (by address):
 
@@ -177,8 +190,36 @@ FDS              0xf80010           0x000002
 
 Linker script and memory map
 
-LOAD build/default/production/main.o
+
+reserve_data_0x800
+                    0x0800         0x20
+                    0x0820                  . = 0x20
+ *fill*             0x0800         0x2000
+
+reserve_data_0x820
+                    0x0820          0x2
+                    0x0822                  . = 0x2
+ *fill*             0x0820          0x200
+
+reserve_data_0x822
+                    0x0822          0x2
+                    0x0824                  . = 0x2
+ *fill*             0x0822          0x200
+
+reserve_data_0x824
+                    0x0824          0x2
+                    0x0826                  . = 0x2
+ *fill*             0x0824          0x200
+
+reserve_data_0x826
+                    0x0826         0x2a
+                    0x0850                  . = 0x2a
+ *fill*             0x0826         0x2a00
+LOAD build/default/debug/main.o
                     0x0001                  __MPLAB_BUILD = 0x1
+                    0x0001                  __MPLAB_DEBUG = 0x1
+                    0x0001                  __DEBUG = 0x1
+                    0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
@@ -215,7 +256,7 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8         0x24 build/default/production/main.o
+ .isr.text        0x0002c8         0x24 build/default/debug/main.o
                   0x0002c8                  __OC3Interrupt
                   0x0002da                  __OC2Interrupt
  .isr             0x0002ec          0x4 default_isr
@@ -261,24 +302,24 @@ __FDS
 
 .debug_info       0x000000       0x1b4c
  *(.debug_info)
- .debug_info      0x000000       0x1b4c build/default/production/main.o
+ .debug_info      0x000000       0x1b4c build/default/debug/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x19e
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x19e build/default/production/main.o
+ .debug_abbrev    0x000000        0x19e build/default/debug/main.o
 
 .debug_line       0x000000        0x265
  *(.debug_line)
- .debug_line      0x000000        0x265 build/default/production/main.o
+ .debug_line      0x000000        0x265 build/default/debug/main.o
 
 .debug_frame      0x000000        0x17a
  *(.debug_frame)
- .debug_frame     0x000000        0x17a build/default/production/main.o
+ .debug_frame     0x000000        0x17a build/default/debug/main.o
 
 .debug_str        0x000000        0x123
  *(.debug_str)
- .debug_str       0x000000        0x123 build/default/production/main.o
+ .debug_str       0x000000        0x123 build/default/debug/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -290,7 +331,7 @@ __FDS
                   0x000000        0x116
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x116 build/default/production/main.o
+                  0x000000        0x116 build/default/debug/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -298,7 +339,7 @@ __FDS
 .debug_aranges    0x000000         0x18
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/main.o
+                  0x000000         0x18 build/default/debug/main.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -913,52 +954,55 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a
 END GROUP
-OUTPUT(dist/default/production/milestone_8.X.production.elf elf32-pic30)
+OUTPUT(dist/default/debug/milestone_8.X.debug.elf elf32-pic30)
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
                   0x000018        0x249
  .debug_pubtypes
-                  0x000018        0x249 build/default/production/main.o
+                  0x000018        0x249 build/default/debug/main.o
 
 __c30_signature
                   0x000261         0x12
  __c30_signature
-                  0x000261          0x6 build/default/production/main.o
+                  0x000261          0x6 build/default/debug/main.o
  __c30_signature
                   0x000267          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
                   0x00026d          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800          0x8
- .nbss              0x0800          0x8 build/default/production/main.o
-                    0x0802                  _pwm_counts
-                    0x0804                  _state
-                    0x0806                  _isblack
+.nbss               0x0850          0x8
+ .nbss              0x0850          0x8 build/default/debug/main.o
+                    0x0852                  _pwm_counts
+                    0x0854                  _state
+                    0x0856                  _isblack
 
-.ndata              0x0808          0x8
- .ndata             0x0808          0x8 build/default/production/main.o
-                    0x0808                  _task_num
-                    0x080a                  _N
-                    0x080c                  _N_straight
-                    0x080e                  _N_reverse
+.ndata              0x0858          0x8
+ .ndata             0x0858          0x8 build/default/debug/main.o
+                    0x0858                  _task_num
+                    0x085a                  _N
+                    0x085c                  _N_straight
+                    0x085e                  _N_reverse
+
+.config_ICS       0xf8000e          0x2
+ .config_ICS      0xf8000e          0x2 build/default/debug/main.o
 
 .config_IESO      0xf80006          0x2
- .config_IESO     0xf80006          0x2 build/default/production/main.o
+ .config_IESO     0xf80006          0x2 build/default/debug/main.o
 
 .ivt._OC3Interrupt
                   0x000046          0x2
  .ivt._OC3Interrupt
-                  0x000046          0x2 build/default/production/main.o
+                  0x000046          0x2 build/default/debug/main.o
 
 .ivt._OC2Interrupt
                   0x000020          0x2
  .ivt._OC2Interrupt
-                  0x000020          0x2 build/default/production/main.o
+                  0x000020          0x2 build/default/debug/main.o
 
 .text             0x0002f2        0x36a
- .text            0x0002f2        0x36a build/default/production/main.o
+ .text            0x0002f2        0x36a build/default/debug/main.o
                   0x0002f2                  _follow
                   0x00035c                  _follow_slow
                   0x0003c6                  _right_90
